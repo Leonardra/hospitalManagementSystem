@@ -10,4 +10,5 @@ import org.springframework.stereotype.Service;
 public interface StaffService {
     Staff addStaff(StaffDto staffDto);
     Staff updateStaff(UpdateStaffDto updateStaffDto);
+
 }
