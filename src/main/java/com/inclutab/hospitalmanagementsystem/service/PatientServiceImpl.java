@@ -12,7 +12,10 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PatientServiceImpl implements PatientService{
@@ -41,6 +44,31 @@ public class PatientServiceImpl implements PatientService{
                     pw.println(patientRow);
                 }
             }
+        }else{
+            throw new StaffNotFoundException("Unauthorised Access");
+        }
+    }
+
+    @Override
+    public List<Patient> findAllPatients(String uuid) {
+        Staff staff = staffRepository.findByUuid(uuid);
+
+        if(staff != null){
+            List<Patient> patients = patientRepository.findAll();
+            return patients
+                    .stream()
+                    .filter(e -> LocalDate.now().getYear() - e.getLastVisitDate().getYear() > 2)
+                    .collect(Collectors.toList());
+        }else{
+            throw new StaffNotFoundException("Unauthorised Access");
+        }
+    }
+
+    @Override
+    public void deleteAll(String uuid, String from, String to) {
+        Staff staff = staffRepository.findByUuid(uuid);
+        if(staff != null){
+            patientRepository.deleteAll(from, to);
         }else{
             throw new StaffNotFoundException("Unauthorised Access");
         }
