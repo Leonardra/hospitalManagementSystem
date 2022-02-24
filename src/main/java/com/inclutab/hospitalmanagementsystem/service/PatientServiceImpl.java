@@ -1,6 +1,7 @@
 package com.inclutab.hospitalmanagementsystem.service;
 
 
+import com.inclutab.hospitalmanagementsystem.data.dtos.DeleteForm;
 import com.inclutab.hospitalmanagementsystem.data.model.Patient;
 import com.inclutab.hospitalmanagementsystem.data.model.Staff;
 import com.inclutab.hospitalmanagementsystem.data.repository.PatientRepository;
@@ -65,10 +66,10 @@ public class PatientServiceImpl implements PatientService{
     }
 
     @Override
-    public void deleteAll(String uuid, String from, String to) {
+    public void deleteAll(String uuid, DeleteForm deleteForm) {
         Staff staff = staffRepository.findByUuid(uuid);
         if(staff != null){
-            patientRepository.deleteAll(from, to);
+            patientRepository.deleteAll(deleteForm.getFrom(), deleteForm.getTo());
         }else{
             throw new StaffNotFoundException("Unauthorised Access");
         }
