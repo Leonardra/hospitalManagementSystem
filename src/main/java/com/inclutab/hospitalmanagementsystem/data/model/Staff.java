@@ -3,11 +3,9 @@ package com.inclutab.hospitalmanagementsystem.data.model;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -19,4 +17,9 @@ public class Staff {
     private String uuid;
     @CreationTimestamp
     private LocalDate registrationDate;
+
+    @PrePersist
+    public void setUuid(){
+        uuid = UUID.randomUUID().toString();
+    }
 }
