@@ -3,6 +3,7 @@ package com.inclutab.hospitalmanagementsystem.service;
 import com.inclutab.hospitalmanagementsystem.data.dtos.StaffDto;
 import com.inclutab.hospitalmanagementsystem.data.dtos.UpdateStaffDto;
 import com.inclutab.hospitalmanagementsystem.data.model.Staff;
+import com.inclutab.hospitalmanagementsystem.exceptions.IllegalStaffFieldException;
 import com.inclutab.hospitalmanagementsystem.exceptions.StaffNotNullException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -43,6 +44,13 @@ class StaffServiceImplTest {
     void testThatStaffCannotBeNull(){
         StaffDto newStaff = null;
         assertThrows(StaffNotNullException.class, ()-> staffServiceImpl.addStaff(newStaff));
+    }
+
+    @Test
+    void testThatStaffNameCannotBeEmpty(){
+        StaffDto newStaff = new StaffDto();
+        newStaff.setName("");
+        assertThrows(IllegalStaffFieldException.class, ()-> staffServiceImpl.addStaff(newStaff));
     }
 
 
