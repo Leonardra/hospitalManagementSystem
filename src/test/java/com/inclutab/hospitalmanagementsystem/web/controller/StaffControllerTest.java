@@ -15,9 +15,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-
-import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -29,9 +26,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class StaffControllerTest {
 
-
-    @Autowired
-    private StaffController controller;
 
     ObjectMapper mapper = new ObjectMapper();
 
@@ -54,7 +48,6 @@ class StaffControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
-
     }
 
 
@@ -72,7 +65,4 @@ class StaffControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    @Test
-    void updateStaff() {
-    }
 }
