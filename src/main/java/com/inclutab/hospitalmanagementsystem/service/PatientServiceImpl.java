@@ -35,7 +35,7 @@ public class PatientServiceImpl implements PatientService{
             if(optionalPatient.isPresent()){
                 Patient patient = optionalPatient.get();
 
-                File csvFile = new File("inventory.csv");
+                File csvFile = new File("patient.csv");
                 if(!csvFile.exists()) {
                     boolean newFile = csvFile.createNewFile();
                 }

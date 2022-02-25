@@ -1,6 +1,7 @@
 package com.inclutab.hospitalmanagementsystem.web.controller;
 
 import com.inclutab.hospitalmanagementsystem.data.dtos.DeleteForm;
+import com.inclutab.hospitalmanagementsystem.data.dtos.DownloadForm;
 import com.inclutab.hospitalmanagementsystem.exceptions.HospitalManagementSystemException;
 import com.inclutab.hospitalmanagementsystem.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,10 @@ public class PatientController {
     PatientService patientServiceImpl;
 
     @GetMapping("/downloadCsv/{uuid}")
-    public ResponseEntity<?> writeToCsv(@PathVariable String uuid, @RequestBody Long patientId){
+    public ResponseEntity<?> writeToCsv(@PathVariable String uuid, @RequestBody DownloadForm form){
         try {
-            patientServiceImpl.writeToCsv(uuid, patientId);
-            return new ResponseEntity<>("File download was successful, check inventory.csv in the program directory", HttpStatus.OK);
+            patientServiceImpl.writeToCsv(uuid, form.getPatientId());
+            return new ResponseEntity<>("File download was successful, check patient.csv in the program directory", HttpStatus.OK);
         }catch (IOException ex){
             return new ResponseEntity<>("Error processing request", HttpStatus.BAD_REQUEST);
         }catch(HospitalManagementSystemException ex){
