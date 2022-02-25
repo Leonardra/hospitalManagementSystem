@@ -6,6 +6,7 @@ import com.inclutab.hospitalmanagementsystem.exceptions.HospitalManagementSystem
 import com.inclutab.hospitalmanagementsystem.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public class StaffController {
     StaffService staffServiceImpl;
 
 
-    @PostMapping("/")
+    @PostMapping(value = "/")
     public ResponseEntity<?> addStaff(@RequestBody StaffDto staffDto){
         try {
             return new ResponseEntity<>(staffServiceImpl.addStaff(staffDto), HttpStatus.OK);
